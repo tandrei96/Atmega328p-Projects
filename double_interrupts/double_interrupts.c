@@ -2,13 +2,13 @@
 #include <avr/interrupt.h>
 #include<avr/delay.h>
 
-uint8_t cnt=0; //asta va stoca de cate ori fac overflow
+uint8_t cnt=0; //the counter that will keep track of how many overflows happened
 void Setup_timer (void);
 void Setup_External_interrupt(void);
 
 
 int main(void){
-     DDRB |=(1<<DDB5); //set output doar pe DDRB pin 5  
+     DDRB |=(1<<DDB5); //set output only on DDRB pin 5  
       
     Setup_timer();
     Setup_External_interrupt();
@@ -27,7 +27,7 @@ int main(void){
     void Setup_timer(void){
             /*setup timer overflow*/
 
-            TCCR0A &= ~(3<<WGM00); //set normal mode. set wgm00 si wgm01 cu 1 dar dupaia aplic TCCR0A and not si astfel ii fac 0 pe bitii aia
+            TCCR0A &= ~(3<<WGM00); //set normal mode. set wgm00 and wgm01 with 1
             
             TIMSK0 |= (1<<TOIE0);  //set interrupt on overflow
 
