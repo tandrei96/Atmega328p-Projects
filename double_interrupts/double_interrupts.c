@@ -43,10 +43,13 @@ When the TOIE0 bit is written to one, and the I-bit in the Status Register is se
         
         
          ISR(INT0_vect){  //external interrupt routine
+              sei();
              PORTB |= (1<<PORTB5);
         }
 
-        ISR(TIMER0_OVF_vect){ //timer overflow interupt routine
+        ISR(TIMER0_OVF_vect){ 
+             sei();
+             //timer overflow interupt routine
             cnt++;
                 if (cnt==61){
                 PORTB ^=(1<<PORTB5); //executes at a rate of 1 Hz   
