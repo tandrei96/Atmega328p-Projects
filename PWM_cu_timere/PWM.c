@@ -1,6 +1,6 @@
 
 #ifndef F_CPU					// if F_CPU was not defined in Project -> Properties
-#define F_CPU 16000000UL			// define it now as 1 MHz unsigned long
+#define F_CPU 16000000UL			// define it now as 16 MHz unsigned long
 #endif
 
 #include <avr/io.h>				// this is always included in AVR programs
@@ -10,7 +10,7 @@
 double dutycycle=0;
 int main(void) {
 	
-	DDRB |= (1 << DDB5) ;			// set PC5 (pin 28) and PC4 (pin 27) for output
+	DDRB |= (1 << DDB5) ;			// set data register 5 for output
 	/*
 	TCCR0A - Timer/Counter 0 Control Register A
 	
@@ -28,7 +28,8 @@ int main(void) {
 	bit 2 = 0
 	
 	WGM01 = 1     CTC (Clear Timer on Compare match) mode, see TCCR0B also
-	WGM00 = 0     TCNT0 will count up to value in OCR0A, then signal timer 0 compare interrupt
+	WGM00 = 1    TCNT0 will count up to value in OCR0A, then signal timer 0 compare interrupt
+	both wgm bits set to high means the top value is 0xFF
 	*/
 	TCCR0A = 0b10000011;
 	
@@ -54,7 +55,7 @@ int main(void) {
 	
 	
 	
-	OCR0A = (dutycycle/100.0)*255.0;		// set compare register to low value to produce fast PWM
+	OCR0A = (dutycycle/100.0)*255.0;		// value that compers with tcnt0. when TCNT0=OCR0A, the pin is pulled low from OCR0A to OxFF. Then we interrupt and switch on the bit
 	
 	sei();				// enable interrupts
 		/*
@@ -76,7 +77,7 @@ int main(void) {
 	CS01 = 1      clock / 64, should not use less than this to allow ISR enough clock cycles
 	CS00 = 1
 	*/
-	TCCR0B = 0b00001001;
+	TCCR0B = 0b00001001; 	//no prescaler
 	
 	while (1) {
 			_delay_ms(15);
