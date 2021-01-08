@@ -1,0 +1,4 @@
+default: DataLog
+
+DataLog: DataLogTransformer.c
+	clang $^ -o $@

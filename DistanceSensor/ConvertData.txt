@@ -1,0 +1,16 @@
+COMANDA od : converteste din orice e in fisierul meu in decimal in pachete de cate 1 byte si mi exporta rezultatul in output4.txt
+$ od -t  d1 output3.txt > output4.txt
+
+
+od -t  d1 output3.txt > output4.txt
+
+Folosim od ca sa convertim orice data in orice data vrem.
+
+-t (optiunea) d1 ->d1 inseamna decimal in pachete de cate 1 byte
+
+Dupaia > output4.txt inseamna ca export tot rezultatul intr-un fisier pe care mi-l creaza automat
+
+
+When you use ps aux > file, the output of ps aux will be written to file and if a file named file was already present, its contents will be overwritten.
+
+And if you use ps aux >> file, the output of ps aux will be written to file and if the file named file was already present, the file will now contain its previous contents and also the contents of ps aux, written after its older contents of file.
