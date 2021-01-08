@@ -1,0 +1,1 @@
+The program uses a ultrasonic sensor to get the distance, and comunicates the results through UART protocal with the Linux PC. Using tee and od commands in the linux machine, we convert the data from ascii code to decimal
